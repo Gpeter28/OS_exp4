@@ -35,7 +35,6 @@
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonAddMax = new System.Windows.Forms.Button();
             this.buttonSimulate = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.RRListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -60,6 +59,7 @@
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button_Reset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -75,7 +75,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(541, 9);
+            this.label2.Location = new System.Drawing.Point(571, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 12);
             this.label2.TabIndex = 1;
@@ -84,7 +84,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(541, 311);
+            this.label3.Location = new System.Drawing.Point(571, 311);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(107, 12);
             this.label3.TabIndex = 2;
@@ -101,7 +101,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(416, 114);
+            this.buttonAdd.Location = new System.Drawing.Point(435, 114);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(94, 23);
             this.buttonAdd.TabIndex = 4;
@@ -111,7 +111,7 @@
             // 
             // buttonAddMax
             // 
-            this.buttonAddMax.Location = new System.Drawing.Point(416, 183);
+            this.buttonAddMax.Location = new System.Drawing.Point(435, 183);
             this.buttonAddMax.Name = "buttonAddMax";
             this.buttonAddMax.Size = new System.Drawing.Size(94, 23);
             this.buttonAddMax.TabIndex = 5;
@@ -121,21 +121,13 @@
             // 
             // buttonSimulate
             // 
-            this.buttonSimulate.Location = new System.Drawing.Point(416, 252);
+            this.buttonSimulate.Location = new System.Drawing.Point(435, 252);
             this.buttonSimulate.Name = "buttonSimulate";
             this.buttonSimulate.Size = new System.Drawing.Size(94, 23);
             this.buttonSimulate.TabIndex = 6;
             this.buttonSimulate.Text = "开始调度";
             this.buttonSimulate.UseVisualStyleBackColor = true;
             this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(68, 65);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(118, 15);
-            this.progressBar1.TabIndex = 7;
-            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             // 
             // RRListView
             // 
@@ -187,7 +179,7 @@
             this.columnHeader21,
             this.columnHeader22});
             this.DPListView.HideSelection = false;
-            this.DPListView.Location = new System.Drawing.Point(543, 35);
+            this.DPListView.Location = new System.Drawing.Point(564, 35);
             this.DPListView.Name = "DPListView";
             this.DPListView.Size = new System.Drawing.Size(385, 240);
             this.DPListView.TabIndex = 12;
@@ -269,7 +261,7 @@
             this.columnHeader13,
             this.columnHeader14});
             this.SPNListView.HideSelection = false;
-            this.SPNListView.Location = new System.Drawing.Point(543, 335);
+            this.SPNListView.Location = new System.Drawing.Point(564, 335);
             this.SPNListView.Name = "SPNListView";
             this.SPNListView.Size = new System.Drawing.Size(385, 240);
             this.SPNListView.TabIndex = 14;
@@ -301,15 +293,25 @@
             this.columnHeader14.Text = "状态";
             this.columnHeader14.Width = 56;
             // 
+            // button_Reset
+            // 
+            this.button_Reset.Location = new System.Drawing.Point(435, 311);
+            this.button_Reset.Name = "button_Reset";
+            this.button_Reset.Size = new System.Drawing.Size(94, 23);
+            this.button_Reset.TabIndex = 15;
+            this.button_Reset.Text = "初始化";
+            this.button_Reset.UseVisualStyleBackColor = true;
+            this.button_Reset.Click += new System.EventHandler(this.button_Reset_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 627);
+            this.Controls.Add(this.button_Reset);
             this.Controls.Add(this.SPNListView);
             this.Controls.Add(this.SRTListView);
             this.Controls.Add(this.DPListView);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.RRListView);
             this.Controls.Add(this.buttonSimulate);
             this.Controls.Add(this.buttonAddMax);
@@ -334,7 +336,6 @@
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonAddMax;
         private System.Windows.Forms.Button buttonSimulate;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ListView RRListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -359,6 +360,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.Button button_Reset;
     }
 }
 

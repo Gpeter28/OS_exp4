@@ -99,10 +99,6 @@ namespace OSS_EXP4
         {
             Method.ClearArray();
             Init();
-            /*RRListView.Clear();
-            DPListView.Clear();
-            SRTListView.Clear();
-            SPNListView.Cleer();*/
             if(timer != null)
             {
                 timer.Stop();
@@ -143,24 +139,6 @@ namespace OSS_EXP4
             }
         }
 
-            // MessageBox.Show(RRListView.Controls[0].Name);
-
-
-            /*int i = 0;
-            foreach(Control item in RRListView.Controls)
-            {
-                    if (item.Name == "RR" + i)
-                    {
-                        MessageBox.Show(i.ToString());
-                        ProgressBar pb = (ProgressBar)item;
-                        double p = (RR[i].percentage - RR[i].times) / (double)RR[i].percentage;
-                        pb.Value = (int)(p * 100);
-                        ++i;
-                        continue;
-                    }
-            }*/
-            // ListViewItem item = RRListView.Items[0];
-
 
         private void Update(List<Eprocess> RR, List<Eprocess> DP, List<Eprocess> SRT, List<Eprocess> SPN)
         {
@@ -169,8 +147,6 @@ namespace OSS_EXP4
             double[] SRTArray = new double[10];
             double[] SPNArray = new double[10];
             RRListView.Items.Clear();
-            // RRListView.Controls.Clear();
-            // MessageBox.Show(RRListView.Controls.Count.ToString());
             for (int i = 0; i < RR.Count; ++i)
             {
                 double p = (RR[i].percentage - RR[i].times) / (double)RR[i].percentage;
@@ -185,14 +161,6 @@ namespace OSS_EXP4
                 RRArray[i] = p;
                 // https://stackoverflow.com/questions/39181805/accessing-progressbar-in-listview
 
-                /*foreach(Control it in RRListView.Controls)
-                {
-                    if(it.Name == RR[i].name.ToString())
-                    {
-                        ProgressBar bar = (ProgressBar)it;
-                        bar.Value = (int)(p * 100);
-                    }
-                }*/
             }
 
 
@@ -249,124 +217,6 @@ namespace OSS_EXP4
             /*SPN.Sort();                     // first base on time and then base on Status( 2 => processing 1 => waiting)
             SPN = SPN.OrderByDescending(x => x.status)
                 .ToList();*/
-
-            /*foreach(Control control in RRListView.Controls)
-            {
-                for(int i = 0; i < RR.Count;++i)
-                {
-                    if(control.Name == "RR" + i)
-                    {
-                        ProgressBar pb = (ProgressBar)control;
-                        double p = (RR[i].percentage - RR[i].times) / (double)RR[i].percentage;
-
-                        if(p == 1)
-                        {
-                            pb.Value = 100;
-                            RRListView.Controls.Remove(control);
-                        }
-                        else
-                        {
-                            pb.Value = (int)(p * 100);
-                        }
-                    }
-                }
-            }*/
-
-
-
-
-            /*
-            foreach (Control control in RRListView.Controls)
-            {
-                for (int i = 0; i < RR.Count; ++i)
-                {
-                    if (control.Name == "RR" + i)
-                    {
-                        ProgressBar pb = (ProgressBar)control;
-                        double p = (RR[i].percentage - RR[i].times) / (double)RR[i].percentage;
-
-
-                        if (p == 1)
-                        {
-                            pb.Value = 100;
-                            RRListView.Controls.Remove(control);
-                        }
-                        else
-                        {
-                            pb.Value = (int)(p * 100);
-                        }
-                    }
-                }
-            }
-
-            foreach (Control control in DPListView.Controls)
-            {
-                for (int i = 0; i < DP.Count; ++i)
-                {
-                    if (control.Name == "DP" + i)
-                    {
-                        ProgressBar pb = (ProgressBar)control;
-                        double p = (DP[i].percentage - DP[i].times) / (double)DP[i].percentage;
-
-
-                        if (p == 1)
-                        {
-                            pb.Value = 100;
-                            DPListView.Controls.Remove(control);
-                        }
-                        else
-                        {
-                            pb.Value = (int)(p * 100);
-                        }
-                    }
-                }
-            }
-
-            foreach (Control control in SPNListView.Controls)
-            {
-                for (int i = 0; i < SPN.Count; ++i)
-                {
-                    if (control.Name == "SPN" + i)
-                    {
-                        ProgressBar pb = (ProgressBar)control;
-                        double p = (SPN[i].percentage - SPN[i].times) / (double)SPN[i].percentage;
-
-
-                        if (p == 1)
-                        {
-                            pb.Value = 100;
-                            SPNListView.Controls.Remove(control);
-                        }
-                        else
-                        {
-                            pb.Value = (int)(p * 100);
-                        }
-                    }
-                }
-            }
-
-            foreach (Control control in SRTListView.Controls)
-            {
-                for (int i = 0; i < SRT.Count; ++i)
-                {
-                    if (control.Name == "SRT" + i)
-                    {
-                        ProgressBar pb = (ProgressBar)control;
-                        double p = (SRT[i].percentage - SRT[i].times) / (double)SRT[i].percentage;
-
-
-                        if (p == 1)
-                        {
-                            pb.Value = 100;
-                            SRTListView.Controls.Remove(control);
-                        }
-                        else
-                        {
-                            pb.Value = (int)(p * 100);
-                        }
-                    }
-                }
-            }*/
         }
 
 
@@ -657,27 +507,5 @@ namespace OSS_EXP4
         }
     }
 }
-
-
-/*
- * 
- * 
- * for(RR的数量)
- * 向图表中添加各个数据
- * 
- *         private void Label_Kxnrl_DoubleClick(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("如果你喜欢这个软件, 请到GitHub点个Star吧.", "嘤嘤嘤", 
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) 
-                == DialogResult.Yes)
-            {
-                System.Diagnostics.Process.Start("https://github.com/Kxnrl/DNF-Utils");
-            }
-            else
-            {
-                System.Diagnostics.Process.Start(Variables.Version.Website);
-            }
-        }
- */
 
 

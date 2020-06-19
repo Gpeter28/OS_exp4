@@ -2,9 +2,9 @@ F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\bin\Debug\OSS_EXP4.exe.config
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\bin\Debug\OSS_EXP4.exe
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\bin\Debug\OSS_EXP4.pdb
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.csprojAssemblyReference.cache
-F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.Form1.resources
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.Properties.Resources.resources
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.csproj.GenerateResource.cache
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.csproj.CoreCompileInputs.cache
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.exe
 F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.pdb
+F:\src\source code for 2019\OSS_EXP4\OSS_EXP4\obj\Debug\OSS_EXP4.MainForm.resources

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Deployment.Application;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -12,12 +10,11 @@ using Timer = System.Timers.Timer;
 
 namespace OSS_EXP4
 {
-    public partial class MainForm : Form
+    public partial class Form1 : Form
     {
-        public static Double Seconds = 1000;
+        private Double Seconds = 100;
         private Boolean IsStart = false;
         private Timer timer;
-        // private string spaceMargin = "                ";
 
         private void SetTimer()
         {
@@ -31,7 +28,7 @@ namespace OSS_EXP4
         {
             StartSimulate();
         }
-        public MainForm()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -78,7 +75,7 @@ namespace OSS_EXP4
 
         private void buttonAddMax_Click(object sender, EventArgs e)
         {
-            Method.CreateRandomProcess(Method.MaxProcess);
+            Method.CreateRandomProcess(5);
             Init();
         }
 
@@ -87,28 +84,20 @@ namespace OSS_EXP4
             IsStart = true;
             SetTimer();
             timer.Start();
-            // Init();
             // StartSimulate();
-            label_Working.Visible = true;
-            label_Working.Text = "调度中";
-            txtb_speed.Enabled = false;
-            btn_SetTime.Enabled = false;
         }
 
         private void button_Reset_Click(object sender, EventArgs e)
         {
             Method.ClearArray();
             Init();
-            if(timer != null)
-            {
-                timer.Stop();
-            }
+            /*RRListView.Clear();
+            DPListView.Clear();
+            SRTListView.Clear();
+            SPNListView.Cleer();*/
+            timer.Stop();
             IsStart = false;
-            label_Working.Visible = false;
-            AllProgressBarReset();
-            txtb_speed.Text = "500";
-            txtb_speed.Enabled = true;
-            btn_SetTime.Enabled = true;
+
         }
 
         private static List<Eprocess> RR = new List<Eprocess>();
@@ -119,12 +108,17 @@ namespace OSS_EXP4
         private void StartSimulate()
         {
             // 增加每一段时间进行Update的控制
-            ;
             RR = Method.RR(RR);
+
+            // 程序在这里中断了
+            
+
+
             DP = Method.DP(DP);
             SRT = Method.SRT(SRT); //?
             SPN = Method.SPN(SPN);
             Update(RR, DP, SRT, SPN);
+
 
 
             if (SRT.Count == 0 && DP.Count == 0 && SPN.Count == 0 && RR.Count == 0)
@@ -135,47 +129,47 @@ namespace OSS_EXP4
                     RRListView.Items.Clear();
                     timer.Stop();
                     IsStart = false;
-                    label_Working.Text = "调度结束";
             }
         }
 
 
         private void Update(List<Eprocess> RR, List<Eprocess> DP, List<Eprocess> SRT, List<Eprocess> SPN)
         {
-            double[] RRArray = new double[10];
-            double[] DPArray = new double[10];
-            double[] SRTArray = new double[10];
-            double[] SPNArray = new double[10];
             RRListView.Items.Clear();
+            RRListView.Controls.Clear();
+            // MessageBox.Show(RRListView.Controls.Count.ToString());
             for (int i = 0; i < RR.Count; ++i)
             {
                 double p = (RR[i].percentage - RR[i].times) / (double)RR[i].percentage;
                 ListViewItem item = new ListViewItem(RR[i].name.ToString());
                 // item.SubItems.Add((p * 100).ToString());
-                p *= 100;
-                item.SubItems.Add(p.ToString("F1") + "%");
+                item.SubItems.Add(p.ToString());
                 item.SubItems.Add(RR[i].primary.ToString());
                 item.SubItems.Add(RR[i].times.ToString());
                 item.SubItems.Add(RR[i].status.ToString());
                 RRListView.Items.Add(item);
-                RRArray[i] = p;
                 // https://stackoverflow.com/questions/39181805/accessing-progressbar-in-listview
 
+                /*foreach(Control it in RRListView.Controls)
+                {
+                    if(it.Name == RR[i].name.ToString())
+                    {
+                        ProgressBar bar = (ProgressBar)it;
+                        bar.Value = (int)(p * 100);
+                    }
+                }*/
             }
-
 
             DPListView.Items.Clear();
             for (int i = 0; i < DP.Count; ++i)
             {
                 double p = (DP[i].percentage - DP[i].times) / (double)DP[i].percentage;
                 ListViewItem item = new ListViewItem(DP[i].name.ToString());
-                p *= 100;
-                item.SubItems.Add(p.ToString("F1") + "%");
+                item.SubItems.Add(p.ToString());
                 item.SubItems.Add(DP[i].primary.ToString());
                 item.SubItems.Add(DP[i].times.ToString());
                 item.SubItems.Add(DP[i].status.ToString());
                 DPListView.Items.Add(item);
-                DPArray[i] = p;
             }
             /*DP = DP.OrderByDescending(x => x.primary)
                 .ToList();*/
@@ -186,13 +180,11 @@ namespace OSS_EXP4
             {
                 double p = (SRT[i].percentage - SRT[i].times) / (double)SRT[i].percentage;
                 ListViewItem item = new ListViewItem(SRT[i].name.ToString());
-                p *= 100;
-                item.SubItems.Add(p.ToString("F1") + "%");
+                item.SubItems.Add(p.ToString());
                 item.SubItems.Add(SRT[i].primary.ToString());
                 item.SubItems.Add(SRT[i].times.ToString());
                 item.SubItems.Add(SRT[i].status.ToString());
                 SRTListView.Items.Add(item);
-                SRTArray[i] = p;
             }
            /* SRT = SRT.OrderByDescending(x => x.times)
                 .ToList();*/
@@ -202,18 +194,12 @@ namespace OSS_EXP4
             {
                 double p = (SPN[i].percentage - SPN[i].times) / (double)SPN[i].percentage;
                 ListViewItem item = new ListViewItem(SPN[i].name.ToString());
-                p *= 100;
-                item.SubItems.Add(p.ToString("F1") + "%");
+                item.SubItems.Add(p.ToString());
                 item.SubItems.Add(SPN[i].primary.ToString());
                 item.SubItems.Add(SPN[i].times.ToString());
                 item.SubItems.Add(SPN[i].status.ToString());
                 SPNListView.Items.Add(item);
-                SPNArray[i] = p;
             }
-            UpdateRRProgressBar(RRArray);
-            UpdateDPProgressBar(DPArray);
-            UpdateSRTProgressBar(SRTArray);
-            UpdateSPNProgressBar(SPNArray);
             /*SPN.Sort();                     // first base on time and then base on Status( 2 => processing 1 => waiting)
             SPN = SPN.OrderByDescending(x => x.status)
                 .ToList();*/
@@ -229,7 +215,6 @@ namespace OSS_EXP4
             DP = Method.ProcessArray.ConvertAll(i => new Eprocess(i.name, i.status, i.primary, i.times));
             SRT = Method.ProcessArray.ConvertAll(i => new Eprocess(i.name, i.status, i.primary, i.times));
             SPN = Method.ProcessArray.ConvertAll(i => new Eprocess(i.name, i.status, i.primary, i.times));
-
 
             RRListView.Items.Clear();
             for (int i = 0; i < RR.Count; ++i)
@@ -251,9 +236,8 @@ namespace OSS_EXP4
                 pb.Minimum = 0;
                 pb.Maximum = 100;
                 pb.Value = (int)(p * 100);
-                pb.Parent = RRListView;
-                //item.ListView.Controls.Add(pb);
-                pb.Name = "RR" + i;*/
+                item.ListView.Controls.Add(pb);
+                pb.Name = "RR" + RR[i].name;*/
                 // item.Controls.Add(pb);
             }
 
@@ -303,209 +287,5 @@ namespace OSS_EXP4
                 .ToList();
         }
 
-
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            // SetTimer();
-            
-        }
-
-
-        // 如果使用如DP那样的方法 可以瞬间完成进度条的显示， 但是会导致莫名其妙的bug 因为这算是个小hack。就不修了
-        private void UpdateRRProgressBar(double[] Array)
-        {
-            RRpb0.Value = (int)Array[0];
-
-            RRpb1.Value = (int)Array[1];
-
-            RRpb2.Value = (int)Array[2];
-
-            RRpb3.Value = (int)Array[3];
-
-            RRpb4.Value = (int)Array[4];
-
-            RRpb5.Value = (int)Array[5];
-
-            RRpb6.Value = (int)Array[6];
-
-            RRpb7.Value = (int)Array[7];
-
-            RRpb8.Value = (int)Array[8];
-
-            RRpb9.Value = (int)Array[9];
-        }
-
-        private void UpdateDPProgressBar(double[] Array)
-        {
-            DPpb0.Value = (int)Array[0];
-            //DPpb0.Value = (int)Array[0] - 1;
-            //DPpb0.Value = (int)Array[0];
-
-            DPpb1.Value = (int)Array[1];
-            //DPpb1.Value = (int)Array[1] - 1;
-            //DPpb1.Value = (int)Array[1];
-
-            DPpb2.Value = (int)Array[2];
-            //DPpb2.Value = (int)Array[2] - 1;
-            //DPpb2.Value = (int)Array[2];
-
-
-            DPpb3.Value = (int)Array[3];
-            //DPpb3.Value = (int)Array[3] - 1;
-            //DPpb3.Value = (int)Array[3];
-
-            DPpb4.Value = (int)Array[4];
-            //DPpb4.Value = (int)Array[4] - 1;
-            //DPpb4.Value = (int)Array[4];
-
-            DPpb5.Value = (int)Array[5];
-            //DPpb5.Value = (int)Array[5] - 1;
-            //DPpb5.Value = (int)Array[5];
-
-            DPpb6.Value = (int)Array[6];
-            //DPpb6.Value = (int)Array[6] - 1;
-            //DPpb6.Value = (int)Array[6];
-
-            DPpb7.Value = (int)Array[7];
-            //DPpb7.Value = (int)Array[7] - 1;
-            //DPpb7.Value = (int)Array[7];
-
-            DPpb8.Value = (int)Array[8];
-            //DPpb8.Value = (int)Array[8] - 1;
-            //DPpb8.Value = (int)Array[8];
-
-            DPpb9.Value = (int)Array[9];
-            //DPpb9.Value = (int)Array[9] - 1;
-            //DPpb9.Value = (int)Array[9];
-        }
-
-        private void UpdateSRTProgressBar(double[] Array)
-        {
-            SRTpb0.Value = (int)Array[0];
-
-            SRTpb1.Value = (int)Array[1];
-
-            SRTpb2.Value = (int)Array[2];
-
-            SRTpb3.Value = (int)Array[3];
-
-            SRTpb4.Value = (int)Array[4];
-
-            SRTpb5.Value = (int)Array[5];
-
-            SRTpb6.Value = (int)Array[6];
-
-            SRTpb7.Value = (int)Array[7];
-
-            SRTpb8.Value = (int)Array[8];
-
-            SRTpb9.Value = (int)Array[9];
-        }
-
-        private void UpdateSPNProgressBar(double[] Array)
-        {
-            SPNpb0.Value = (int)Array[0];
-
-            SPNpb1.Value = (int)Array[1];
-
-            SPNpb2.Value = (int)Array[2];
-
-            SPNpb3.Value = (int)Array[3];
-
-            SPNpb4.Value = (int)Array[4];
-
-            SPNpb5.Value = (int)Array[5];
-
-            SPNpb6.Value = (int)Array[6];
-
-            SPNpb7.Value = (int)Array[7];
-
-            SPNpb8.Value = (int)Array[8];
-
-            SPNpb9.Value = (int)Array[9];
-        }
-
-        private void label6_DoubleClick(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("如果你觉得这个软件有帮助, 请到GitHub点个Star吧.", "嘤嘤嘤",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                == DialogResult.Yes)
-            {
-                System.Diagnostics.Process.Start("https://github.com/Gpeter28/OS_exp4");
-            }
-        }
-
-        private void AllProgressBarReset()
-        {
-            RRpb0.Value = 0;
-            RRpb1.Value = 0;
-            RRpb2.Value = 0;
-            RRpb3.Value = 0;
-            RRpb4.Value = 0;
-            RRpb5.Value = 0;
-            RRpb6.Value = 0;
-            RRpb7.Value = 0;
-            RRpb8.Value = 0;
-            RRpb9.Value = 0;
-
-            DPpb0.Value = 0;
-            DPpb1.Value = 0;
-            DPpb2.Value = 0;
-            DPpb3.Value = 0;
-            DPpb4.Value = 0;
-            DPpb5.Value = 0;
-            DPpb6.Value = 0;
-            DPpb7.Value = 0;
-            DPpb8.Value = 0;
-            DPpb9.Value = 0;
-
-            SRTpb0.Value = 0;
-            SRTpb1.Value = 0;
-            SRTpb2.Value = 0;
-            SRTpb3.Value = 0;
-            SRTpb4.Value = 0;
-            SRTpb5.Value = 0;
-            SRTpb6.Value = 0;
-            SRTpb7.Value = 0;
-            SRTpb8.Value = 0;
-            SRTpb9.Value = 0;
-
-            SPNpb0.Value = 0;
-            SPNpb1.Value = 0;
-            SPNpb2.Value = 0;
-            SPNpb3.Value = 0;
-            SPNpb4.Value = 0;
-            SPNpb5.Value = 0;
-            SPNpb6.Value = 0;
-            SPNpb7.Value = 0;
-            SPNpb8.Value = 0;
-            SPNpb9.Value = 0;
-        }
-
-        private void btn_SetTime_Click(object sender, EventArgs e)
-        {
-            string text = txtb_speed.Text;
-            int num = 1000;
-            try
-            {
-                num = Int32.Parse(text);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("错误输入");
-            }
-            if(num < 100)
-            {
-                MessageBox.Show("错误输入");
-            }
-            else
-            {
-                MainForm.Seconds = num;
-                MessageBox.Show("成功设置");
-            }
-        }
     }
 }
-
-
